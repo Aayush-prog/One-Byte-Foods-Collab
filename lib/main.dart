@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:one_byte_foods/home/search.dart';
 import 'package:one_byte_foods/nav/landingpage.dart';
 import 'package:one_byte_foods/restaurant/restaurantPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

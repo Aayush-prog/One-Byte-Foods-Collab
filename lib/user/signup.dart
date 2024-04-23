@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
 class UserSignUp extends StatefulWidget {
@@ -10,10 +11,14 @@ class UserSignUp extends StatefulWidget {
 }
 
 class _UserSignUpState extends State<UserSignUp> {
-  TextEditingController? username;
-  TextEditingController? email;
-  TextEditingController? password;
-  TextEditingController? confirmPwd;
+  TextEditingController username = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPwd = TextEditingController();
+  Future<void> authenticateWithEmailAndPass() async {
+    AuthService.register(
+        email: email.text, pass: password.text, fullname: username.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +57,7 @@ class _UserSignUpState extends State<UserSignUp> {
                 margin: EdgeInsets.all(20),
                 child: TextField(
                   controller: password,
+                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -63,6 +69,7 @@ class _UserSignUpState extends State<UserSignUp> {
                 margin: EdgeInsets.all(20),
                 child: TextField(
                   controller: confirmPwd,
+                  obscureText: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15)),
@@ -73,7 +80,17 @@ class _UserSignUpState extends State<UserSignUp> {
               Container(
                 child: ElevatedButton(
                   child: Text("Sign Up"),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (password.text == confirmPwd.text) {
+                      authenticateWithEmailAndPass();
+                    } else {
+                      AlertDialog(
+                        title: Text("Password do not match!"),
+                        content: Text(
+                            "Your password and confirm password donot seem to be aligning with each other!"),
+                      );
+                    }
+                  },
                 ),
               ),
               Text("or"),

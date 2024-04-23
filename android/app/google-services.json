@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "819477396776",
+    "project_id": "onebytefoodscollab-50a6f",
+    "storage_bucket": "onebytefoodscollab-50a6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819477396776:android:b7f1dc993ae5497db4641d",
+        "android_client_info": {
+          "package_name": "com.example.one_byte_foods"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4pmF6CbWZ8zTLgXUKhMJffHxLb0sSBcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
