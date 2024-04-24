@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:one_byte_foods/nav/homepage.dart';
+import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/signup.dart';
 
 class UserLogin extends StatefulWidget {
@@ -11,6 +13,7 @@ class UserLogin extends StatefulWidget {
 class _UserLoginState extends State<UserLogin> {
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +58,7 @@ class _UserLoginState extends State<UserLogin> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15)),
                       labelText: "Password"),
+                  obscureText: true,
                 ),
               ),
               const SizedBox(height: 10),
@@ -64,7 +68,58 @@ class _UserLoginState extends State<UserLogin> {
                   width: 200,
                   child: ElevatedButton(
                       onPressed: () {
-                        print(email.text);
+                        String status = AuthService.logInWithEmailAndPass(
+                            email: email.text, pass: pass.text) as String;
+                        if (status == "log") {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Logged In Successfully!"),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Home()));
+                                          },
+                                          child: Text("Ok!"))
+                                    ],
+                                  ));
+                        } else if (status == "user-not-found") {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text(
+                                      "User Not Found!!",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Ok!"))
+                                    ],
+                                  ));
+                        } else if (status == "wrong-password") {
+                          showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text(
+                                      "Wront Password!!",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Ok!"))
+                                    ],
+                                  ));
+                        }
                       },
                       child: const Text("Log In"))),
               const SizedBox(height: 50),

@@ -23,4 +23,20 @@ class AuthService {
       print(e);
     }
   }
+
+  static Future<String> logInWithEmailAndPass(
+      {required String email, required String pass}) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: pass);
+      return ("log");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return ("user-not-found");
+      } else if (e.code == 'wrong-password') {
+        return ("wrong-password");
+      }
+      return ("");
+    }
+  }
 }

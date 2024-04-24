@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:one_byte_foods/nav/homepage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
@@ -27,7 +28,7 @@ class _UserSignUpState extends State<UserSignUp> {
           centerTitle: true,
           title: Text("Sign Up"),
         ),
-        body: Container(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -82,13 +83,42 @@ class _UserSignUpState extends State<UserSignUp> {
                   child: Text("Sign Up"),
                   onPressed: () {
                     if (password.text == confirmPwd.text) {
+                      print('equal');
                       authenticateWithEmailAndPass();
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text("Signed Up successfully"),
+                                content:
+                                    Text("Thank you signing up!Happy eating"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => UserLogin(),
+                                            ));
+                                      },
+                                      child: Text("OK!"))
+                                ],
+                              ));
                     } else {
-                      AlertDialog(
-                        title: Text("Password do not match!"),
-                        content: Text(
-                            "Your password and confirm password donot seem to be aligning with each other!"),
-                      );
+                      print('not equal');
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text("Password do not match!"),
+                                content: Text(
+                                    "Your password and confirm password donot seem to be aligning with each other!"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("OK!"))
+                                ],
+                              ));
                     }
                   },
                 ),
