@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_byte_foods/nav/homepage.dart';
+import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/signup.dart';
 
@@ -21,7 +22,7 @@ class _UserLoginState extends State<UserLogin> {
           centerTitle: true,
           title: Text("Log In"),
         ),
-        body: Container(
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -62,14 +63,20 @@ class _UserLoginState extends State<UserLogin> {
                 ),
               ),
               const SizedBox(height: 10),
-              const Text("Forgot password"),
+              InkWell(
+                child: const Text("Forgot password"),
+                onTap: () async {
+                  await AuthService.resetPass(email: email.text);
+                },
+              ),
               const SizedBox(height: 10),
               SizedBox(
                   width: 200,
                   child: ElevatedButton(
-                      onPressed: () {
-                        String status = AuthService.logInWithEmailAndPass(
-                            email: email.text, pass: pass.text) as String;
+                      onPressed: () async {
+                        String status = await AuthService.logInWithEmailAndPass(
+                            email: email.text, pass: pass.text);
+                        print(status);
                         if (status == "log") {
                           showDialog(
                               context: context,
@@ -82,7 +89,7 @@ class _UserLoginState extends State<UserLogin> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Home()));
+                                                        MyWidget()));
                                           },
                                           child: Text("Ok!"))
                                     ],

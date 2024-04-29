@@ -12,7 +12,20 @@
           "package_name": "com.example.one_byte_foods"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "819477396776-bcp259ai1889kh3i538od4i6ru7d7qtv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.one_byte_foods",
+            "certificate_hash": "77a52cdfe273f0431d280d1d0bfbec4bd0d016fa"
+          }
+        },
+        {
+          "client_id": "819477396776-3j8u9djfiqe2u79ni9gqh5ofgp0lkj7g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA4pmF6CbWZ8zTLgXUKhMJffHxLb0sSBcY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819477396776-3j8u9djfiqe2u79ni9gqh5ofgp0lkj7g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "819477396776-l1ct5u9avp9gb64e8q95irmh44nklcjl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.oneByteFoods"
+              }
+            }
+          ]
         }
       }
     }

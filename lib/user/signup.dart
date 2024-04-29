@@ -128,10 +128,15 @@ class _UserSignUpState extends State<UserSignUp> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/google.png",
-                    height: 80,
-                    width: 80,
+                  InkWell(
+                    child: Image.asset(
+                      "assets/images/google.png",
+                      height: 80,
+                      width: 80,
+                    ),
+                    onTap: () {
+                      AuthService.signInWithGoogle();
+                    },
                   ),
                   Image.asset(
                     "assets/images/facebook.png",

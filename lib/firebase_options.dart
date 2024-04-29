@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '819477396776',
     projectId: 'onebytefoodscollab-50a6f',
     storageBucket: 'onebytefoodscollab-50a6f.appspot.com',
+    androidClientId: '819477396776-bcp259ai1889kh3i538od4i6ru7d7qtv.apps.googleusercontent.com',
+    iosClientId: '819477396776-l1ct5u9avp9gb64e8q95irmh44nklcjl.apps.googleusercontent.com',
     iosBundleId: 'com.example.oneByteFoods',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '819477396776',
     projectId: 'onebytefoodscollab-50a6f',
     storageBucket: 'onebytefoodscollab-50a6f.appspot.com',
+    androidClientId: '819477396776-bcp259ai1889kh3i538od4i6ru7d7qtv.apps.googleusercontent.com',
+    iosClientId: '819477396776-l1ct5u9avp9gb64e8q95irmh44nklcjl.apps.googleusercontent.com',
     iosBundleId: 'com.example.oneByteFoods',
   );
 
@@ -85,5 +89,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'onebytefoodscollab-50a6f.appspot.com',
     measurementId: 'G-YL9MJN2H2H',
   );
-
 }
