@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/home/search.dart';
 import 'package:one_byte_foods/nav/landingpage.dart';
+import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/restaurant/restaurantPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -24,19 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      body: ListView(
-          padding: const EdgeInsets.only(top: 30),
-          // height: double.infinity,
-          // width: double.infinity,
-          // decoration: const BoxDecoration(
-          //   color: Colors.white,
-          // ),
-          children: [
-            // UserLogin(),
-            LandingPage(),
-            // Home(),
-            // RestaurantPage(),
-          ]),
+      body: Column(children: [Center(child: LandingPage())]),
       // bottomNavigationBar: Nav(),
     ));
   }

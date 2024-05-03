@@ -8,7 +8,7 @@ import 'package:one_byte_foods/home/luxury.dart';
 import 'package:one_byte_foods/home/offers.dart';
 import 'package:one_byte_foods/home/restaurant.dart';
 import 'package:one_byte_foods/home/search.dart';
-import 'package:one_byte_foods/models/restuarants.dart';
+import 'package:one_byte_foods/models/restaurants.dart';
 import 'package:one_byte_foods/services/database_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
@@ -58,22 +58,30 @@ class _HomeState extends State<Home> {
               ),
             ]),
           ),
-          StreamBuilder(
-              stream: _dbService.getRestaurants(),
-              builder: (context, snapshot) {
-                List restaurants = snapshot.data?.docs ?? [];
-                if (restaurants.isEmpty) {
-                  return Text("No restaurants currently available!");
-                }
-                return ListView.builder(
-                  itemCount: restaurants.length,
-                  itemBuilder: (context, index) {
-                    Restaurants restaurant = restaurants[index].data();
-                    print(restaurant.name);
-                    return Restaurant();
-                  },
-                );
-              }),
+          StreamBuilder<List<Restaurants>>(
+            stream: _dbService.getRestaurants(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator(); // Or any other loading indicator
+              } else if (snapshot.hasError) {
+                return Text("Error: ${snapshot.error}");
+              }
+
+              List<Restaurants> restaurants = snapshot.data ?? [];
+
+              if (restaurants.isEmpty) {
+                return Text("No restaurants currently available!");
+              }
+
+              return ListView.builder(
+                itemCount: restaurants.length,
+                itemBuilder: (context, index) {
+                  Restaurants restaurant = restaurants[index];
+                  return Restaurant();
+                },
+              );
+            },
+          ),
           const Offers(),
           Container(
             margin: const EdgeInsets.only(top: 15),
