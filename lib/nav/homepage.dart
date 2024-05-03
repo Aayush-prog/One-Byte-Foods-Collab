@@ -8,6 +8,8 @@ import 'package:one_byte_foods/home/luxury.dart';
 import 'package:one_byte_foods/home/offers.dart';
 import 'package:one_byte_foods/home/restaurant.dart';
 import 'package:one_byte_foods/home/search.dart';
+import 'package:one_byte_foods/models/restuarants.dart';
+import 'package:one_byte_foods/services/database_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
 class Home extends StatefulWidget {
@@ -18,6 +20,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final DatabaseService _dbService = DatabaseService();
   // String searchedContent = "";
   @override
   Widget build(BuildContext context) {
@@ -55,12 +58,22 @@ class _HomeState extends State<Home> {
               ),
             ]),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: const Row(
-              children: [Restaurant(), Restaurant(), Restaurant()],
-            ),
-          ),
+          StreamBuilder(
+              stream: _dbService.getRestaurants(),
+              builder: (context, snapshot) {
+                List restaurants = snapshot.data?.docs ?? [];
+                if (restaurants.isEmpty) {
+                  return Text("No restaurants currently available!");
+                }
+                return ListView.builder(
+                  itemCount: restaurants.length,
+                  itemBuilder: (context, index) {
+                    Restaurants restaurant = restaurants[index].data();
+                    print(restaurant.name);
+                    return Restaurant();
+                  },
+                );
+              }),
           const Offers(),
           Container(
             margin: const EdgeInsets.only(top: 15),

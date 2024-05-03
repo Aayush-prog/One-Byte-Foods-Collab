@@ -89,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'onebytefoodscollab-50a6f.appspot.com',
     measurementId: 'G-YL9MJN2H2H',
   );
+
 }

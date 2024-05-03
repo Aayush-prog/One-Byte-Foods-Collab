@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:one_byte_foods/nav/landingpage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
+import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
 class UserProfile extends StatelessWidget {
@@ -92,15 +93,20 @@ class UserProfile extends StatelessWidget {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyWidget()));
               },
-              child: Row(
-                children: [
-                  Icon(Icons.logout),
-                  SizedBox(width: 10),
-                  Text(
-                    "Log Out",
-                    style: TextStyle(color: Colors.red),
-                  ),
-                ],
+              child: InkWell(
+                onTap: () {
+                  AuthService.signOutFromGoogle();
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.logout),
+                    SizedBox(width: 10),
+                    Text(
+                      "Log Out",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -27,7 +27,7 @@ class RestaurantPage extends StatelessWidget {
                 },
                 child: const Icon(Icons.person))
           ],
-        ),~
+        ),
         body: ListView(
           children: [
             ImgCarousel(),
