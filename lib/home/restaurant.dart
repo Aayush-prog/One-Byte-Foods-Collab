@@ -5,9 +5,20 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/restaurant/restaurantPage.dart';
 
-class Restaurant extends StatelessWidget {
-  const Restaurant({super.key});
-
+class RestaurantCard extends StatelessWidget {
+  final String documentId;
+  final String cuisine;
+  final String name;
+  final String location;
+  final double ratings;
+  final List imagesURL;
+  const RestaurantCard(
+      {required this.documentId,
+      required this.cuisine,
+      required this.name,
+      required this.location,
+      required this.ratings,
+      required this.imagesURL});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,8 +33,12 @@ class Restaurant extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             onTap: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RestaurantPage()))
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => RestaurantPage(
+                            dataId: documentId,
+                          )))
             },
             child:
                 // child: Container(
@@ -38,24 +53,25 @@ class Restaurant extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("Image"),
+                  Image.network('$imagesURL[1]',
+                      width: 100, height: 100, fit: BoxFit.cover),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Cuisine"),
+                        Text(this.cuisine),
                         Row(
-                          children: [Icon(Icons.stars), Text("4.1")],
+                          children: [Icon(Icons.stars), Text("$ratings")],
                         )
                       ]),
                   Text(
-                    "Restaurant Name",
+                    this.name,
                   ),
-                  Text("Location"),
-                  Container(
-                    child: Column(
-                      children: [Text("Discount Offers")],
-                    ),
-                  )
+                  Text(this.location),
+                  // Container(
+                  //   child: Column(
+                  //     children: [Text("Discount Offers")],
+                  //   ),
+                  // )
                 ],
               ),
             ),

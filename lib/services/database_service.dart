@@ -17,15 +17,13 @@ class DatabaseService {
           toFirestore: (restaurants, _) => restaurants.toJSON(),
         );
   }
-
-  Stream<List<Restaurants>> getRestaurants() {
-    return _restaurantsRef.snapshots().map(
-          (snapshot) => snapshot.docs
-              .map(
-                (doc) => doc.data(),
-              )
-              .toList(),
-        );
+  //one time data
+  // Future<QuerySnapshot> getRestaurants() async {
+  //   return await _restaurantsRef.get();
+  // }
+  // real time data synchronization
+  Stream<QuerySnapshot> getRestaurants() {
+    return _restaurantsRef.snapshots();
   }
 
   Future<void> addRestaurants(Restaurants restaurant) async {

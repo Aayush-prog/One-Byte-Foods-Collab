@@ -21,11 +21,11 @@ class Favorites extends StatelessWidget {
         ],
       ),
       body: ListView(children: [
-        Restaurant(),
-        Restaurant(),
-        Restaurant(),
-        Restaurant(),
-        Restaurant(),
+        // RestaurantCard(),
+        // RestaurantCard(),
+        // RestaurantCard(),
+        // RestaurantCard(),
+        // RestaurantCard(),
       ]),
     );
   }
