@@ -26,6 +26,7 @@ class DatabaseService {
         .withConverter<Orders>(
             fromFirestore: (snapshot, _) => Orders.fromJSON(snapshot.data()!),
             toFirestore: (orders, _) => orders.toJSON());
+
     _usersRef = _firestore.collection(USERS_COLLECTION_REF);
   }
 
@@ -47,20 +48,29 @@ class DatabaseService {
     }
   }
 
-  Future<void> addOrders(Orders order) async {
+  Future<void> addOrders(Orders order, String uid) async {
     try {
-      await _ordersRef.add(order);
+      await _ordersRef.add(order).then((documentSnapshot) =>
+          updateUserData(uid, reserved: documentSnapshot.id));
     } catch (e) {
       print("Error adding order: $e");
       throw e; // Rethrow the error to handle it in the UI or other layers
     }
   }
 
-  Future updateUserData(String uid, [String? favorites]) async {
+  Future updateUserData(String uid,
+      {String? favorites, String? reserved}) async {
     Map<String, dynamic> userData = {};
     if (favorites != null) {
-      userData['favorites'] = favorites;
+      userData['favorites'] = FieldValue.arrayUnion([favorites]);
+    }
+    if (reserved != null) {
+      userData['reserved'] = FieldValue.arrayUnion([reserved]);
     }
     return await _usersRef.doc(uid).set(userData);
+  }
+
+  Future<DocumentSnapshot> userDB(String docId) {
+    return _usersRef.doc(docId).get();
   }
 }

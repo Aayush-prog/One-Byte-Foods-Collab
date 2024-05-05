@@ -4,16 +4,18 @@ import 'package:one_byte_foods/nav/landingpage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/login.dart';
+import 'package:provider/provider.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("User Name"),
+        title: Text(user?.displayName ?? ""),
         actions: [
           InkWell(
               onTap: () {

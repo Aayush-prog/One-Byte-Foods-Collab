@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,12 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/models/orders.dart';
 import 'package:one_byte_foods/services/database_service.dart';
+import 'package:one_byte_foods/user/login.dart';
+import 'package:provider/provider.dart';
 
 class Booking extends StatefulWidget {
-  Booking({super.key});
+  final String resId;
+  Booking({required this.resId});
 
   @override
   State<Booking> createState() => _BookingState();
@@ -40,7 +44,9 @@ class _BookingState extends State<Booking> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     final _dbService = DatabaseService();
+    String restaurantid = widget.resId;
     return Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -127,12 +133,21 @@ class _BookingState extends State<Booking> {
           ),
           Center(
               child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Orders order = new Orders(
+                        resId: restaurantid,
                         size: this.dropdownValue,
                         selectedDate: _getValueText(_dates) as String,
                         time: this.selectedTime);
-                    _dbService.addOrders(order);
+                    if (user?.uid == null) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => UserLogin()));
+                    } else {
+                      String uid = user!.uid;
+                      await _dbService.addOrders(order, uid);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("Restaurant reserved succesfully")));
+                    }
                   },
                   child: Text("Book Now!")))
         ]));

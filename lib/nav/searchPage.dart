@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/home/search.dart';
 import 'package:one_byte_foods/user/login.dart';
+import 'package:one_byte_foods/user/userProfile.dart';
+import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -16,10 +20,13 @@ class SearchPage extends StatelessWidget {
           actions: [
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserLogin()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    if (user?.uid != null) {
+                      return UserProfile();
+                    } else {
+                      return UserLogin();
+                    }
+                  }));
                 },
                 child: const Icon(Icons.person))
           ],

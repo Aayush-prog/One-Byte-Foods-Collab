@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:one_byte_foods/home/offers.dart';
 import 'package:one_byte_foods/restaurant/booking.dart';
@@ -9,6 +10,8 @@ import 'package:one_byte_foods/restaurant/restaurantInfo.dart';
 import 'package:one_byte_foods/restaurant/reviews.dart';
 import 'package:one_byte_foods/services/database_service.dart';
 import 'package:one_byte_foods/user/login.dart';
+import 'package:one_byte_foods/user/userProfile.dart';
+import 'package:provider/provider.dart';
 
 class RestaurantPage extends StatelessWidget {
   final String dataId;
@@ -28,7 +31,7 @@ class RestaurantPage extends StatelessWidget {
     }
 
     Future<DocumentSnapshot>? _documentSnapshot = _getDocument(dataId);
-
+    final user = Provider.of<User?>(context);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -36,10 +39,13 @@ class RestaurantPage extends StatelessWidget {
           actions: [
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserLogin()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    if (user?.uid != null) {
+                      return UserProfile();
+                    } else {
+                      return UserLogin();
+                    }
+                  }));
                 },
                 child: const Icon(Icons.person))
           ],
@@ -65,7 +71,9 @@ class RestaurantPage extends StatelessWidget {
                       cuisine: res['cuisine'],
                       averagePrices: res['averagePrice'],
                       ratings: res['ratings']),
-                  Booking(),
+                  Booking(
+                    resId: dataId,
+                  ),
                   Offers(),
                   Menu(),
                   ImageGallery(),
