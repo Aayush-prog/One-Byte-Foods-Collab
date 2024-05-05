@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:one_byte_foods/home/offers.dart';
-import 'package:one_byte_foods/models/restaurants.dart';
 import 'package:one_byte_foods/restaurant/booking.dart';
 import 'package:one_byte_foods/restaurant/caraousel.dart';
 import 'package:one_byte_foods/restaurant/imageGallery.dart';
@@ -13,7 +12,8 @@ import 'package:one_byte_foods/user/login.dart';
 
 class RestaurantPage extends StatelessWidget {
   final String dataId;
-  const RestaurantPage({required this.dataId});
+  final String name;
+  const RestaurantPage({required this.dataId, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class RestaurantPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Restaurant Name"),
+          title: Text(name),
           actions: [
             InkWell(
                 onTap: () {
@@ -56,7 +56,9 @@ class RestaurantPage extends StatelessWidget {
                   snapshot.data!.data() as Map<String, dynamic>;
               return ListView(
                 children: [
-                  ImgCarousel(),
+                  ImgCarousel(
+                    imagesURL: res['imagesURL'],
+                  ),
                   RestaurantInfo(
                       name: res['name'],
                       location: res['location'],

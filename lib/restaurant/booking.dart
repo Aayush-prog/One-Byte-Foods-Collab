@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:one_byte_foods/models/orders.dart';
+import 'package:one_byte_foods/services/database_service.dart';
 
 class Booking extends StatefulWidget {
   Booking({super.key});
@@ -38,6 +40,7 @@ class _BookingState extends State<Booking> {
 
   @override
   Widget build(BuildContext context) {
+    final _dbService = DatabaseService();
     return Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -121,7 +124,17 @@ class _BookingState extends State<Booking> {
                 ],
               )
             ],
-          )
+          ),
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {
+                    Orders order = new Orders(
+                        size: this.dropdownValue,
+                        selectedDate: _getValueText(_dates) as String,
+                        time: this.selectedTime);
+                    _dbService.addOrders(order);
+                  },
+                  child: Text("Book Now!")))
         ]));
   }
 }

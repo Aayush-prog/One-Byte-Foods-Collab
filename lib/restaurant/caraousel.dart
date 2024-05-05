@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 class ImgCarousel extends StatelessWidget {
-  const ImgCarousel({super.key});
+  final List imagesURL;
+  const ImgCarousel({required this.imagesURL});
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +14,14 @@ class ImgCarousel extends StatelessWidget {
         enableInfiniteScroll: true,
         slideIndicator: CircularSlideIndicator(),
       ),
-      items: [1, 2, 3, 4, 5].map((i) {
+      items: imagesURL.map((i) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(color: Colors.amber),
-                child: Text(
-                  'text $i',
-                  style: TextStyle(fontSize: 16.0),
-                ));
+              width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Image.network(i),
+            );
           },
         );
       }).toList(),

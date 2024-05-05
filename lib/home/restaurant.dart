@@ -21,6 +21,7 @@ class RestaurantCard extends StatelessWidget {
       required this.imagesURL});
   @override
   Widget build(BuildContext context) {
+    print(imagesURL[0]);
     return Container(
       margin: EdgeInsets.all(20),
       child: Material(
@@ -38,6 +39,7 @@ class RestaurantCard extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => RestaurantPage(
                             dataId: documentId,
+                            name: this.name,
                           )))
             },
             child:
@@ -53,10 +55,12 @@ class RestaurantCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network('$imagesURL[1]',
-                      width: 100, height: 100, fit: BoxFit.cover),
+                  Image.network(
+                    imagesURL[0],
+                    width: 210,
+                  ),
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(this.cuisine),
                         Row(

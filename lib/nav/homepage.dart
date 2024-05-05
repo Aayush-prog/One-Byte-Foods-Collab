@@ -164,6 +164,7 @@ class Home extends StatelessWidget {
           ],
         ),
         body: ListView(
+          scrollDirection: Axis.vertical,
           children: [
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 60),
@@ -184,7 +185,7 @@ class Home extends StatelessWidget {
               ]),
             ),
             SizedBox(
-              height: 400,
+              height: 300,
               child: StreamBuilder<QuerySnapshot>(
                 stream: _dbService.getRestaurants(),
                 builder: (context, snapshot) {
