@@ -96,6 +96,8 @@ class UserProfile extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   AuthService.signOutFromGoogle();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyWidget()));
                 },
                 child: Row(
                   children: [

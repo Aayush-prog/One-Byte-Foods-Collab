@@ -131,6 +131,7 @@
 //   }
 // }
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/home/filter.dart';
@@ -141,12 +142,16 @@ import 'package:one_byte_foods/home/search.dart';
 import 'package:one_byte_foods/models/restaurants.dart';
 import 'package:one_byte_foods/services/database_service.dart';
 import 'package:one_byte_foods/user/login.dart';
+import 'package:one_byte_foods/user/userProfile.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User?>(context);
+    print(user?.uid);
     final _dbService = DatabaseService();
     return Scaffold(
         appBar: AppBar(
@@ -155,10 +160,13 @@ class Home extends StatelessWidget {
           actions: [
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const UserLogin()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    if (user?.uid != null) {
+                      return UserProfile();
+                    } else {
+                      return UserLogin();
+                    }
+                  }));
                 },
                 child: const Icon(Icons.person))
           ],

@@ -5,11 +5,13 @@ import 'package:one_byte_foods/models/restaurants.dart';
 
 const String RESTAURANTS_COLLECTION_REF = "restaurants";
 const String ORDERS_COLLECTION_REF = "orders";
+const String USERS_COLLECTION_REF = "users";
 
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late final CollectionReference<Restaurants> _restaurantsRef;
   late final CollectionReference<Orders> _ordersRef;
+  late final CollectionReference _usersRef;
   DatabaseService() {
     _restaurantsRef = _firestore
         .collection(RESTAURANTS_COLLECTION_REF)
@@ -24,6 +26,7 @@ class DatabaseService {
         .withConverter<Orders>(
             fromFirestore: (snapshot, _) => Orders.fromJSON(snapshot.data()!),
             toFirestore: (orders, _) => orders.toJSON());
+    _usersRef = _firestore.collection(USERS_COLLECTION_REF);
   }
 
   //one time data
@@ -51,5 +54,13 @@ class DatabaseService {
       print("Error adding order: $e");
       throw e; // Rethrow the error to handle it in the UI or other layers
     }
+  }
+
+  Future updateUserData(String uid, [String? favorites]) async {
+    Map<String, dynamic> userData = {};
+    if (favorites != null) {
+      userData['favorites'] = favorites;
+    }
+    return await _usersRef.doc(uid).set(userData);
   }
 }

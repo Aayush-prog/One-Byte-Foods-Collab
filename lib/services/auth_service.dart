@@ -1,8 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:one_byte_foods/services/database_service.dart';
 
 class AuthService {
   AuthService._();
+  AuthService();
+
+  Stream<User?> getUser() {
+    return FirebaseAuth.instance.authStateChanges();
+  }
 
   static Future<void> register(
       {required String email,
@@ -14,6 +20,8 @@ class AuthService {
         email: email,
         password: pass,
       );
+
+      await DatabaseService().updateUserData(credential.user!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -80,7 +88,10 @@ class AuthService {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    final finalCred =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+
+    await DatabaseService().updateUserData(finalCred.user!.uid);
   }
 
   // static Future<UserCredential> signInWithGoogle() async {

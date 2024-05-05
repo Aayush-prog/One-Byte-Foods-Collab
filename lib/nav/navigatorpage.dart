@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:one_byte_foods/nav/favorites.dart';
 import 'package:one_byte_foods/nav/homepage.dart';
 import 'package:one_byte_foods/nav/searchPage.dart';
 import 'package:one_byte_foods/user/userProfile.dart';
+import 'package:provider/provider.dart';
 
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});

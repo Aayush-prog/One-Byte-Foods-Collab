@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/nav/homepage.dart';
+import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/user/login.dart';
 
@@ -136,6 +137,8 @@ class _UserSignUpState extends State<UserSignUp> {
                     ),
                     onTap: () {
                       AuthService.signInWithGoogle();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyWidget()));
                     },
                   ),
                   Image.asset(
