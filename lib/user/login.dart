@@ -26,7 +26,6 @@ class _UserLoginState extends State<UserLogin> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
               Image.asset(
                 "assets/images/logo.png",
                 height: 300,
@@ -129,7 +128,24 @@ class _UserLoginState extends State<UserLogin> {
                         }
                       },
                       child: const Text("Log In"))),
-              const SizedBox(height: 50),
+              Text("or"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    child: Image.asset(
+                      "assets/images/google.png",
+                      height: 80,
+                      width: 80,
+                    ),
+                    onTap: () async {
+                      await AuthService.signInWithGoogle();
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyWidget()));
+                    },
+                  ),
+                ],
+              ),
               GestureDetector(
                   onTap: () {
                     Navigator.push(

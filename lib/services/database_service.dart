@@ -73,4 +73,29 @@ class DatabaseService {
   Future<DocumentSnapshot> userDB(String docId) {
     return _usersRef.doc(docId).get();
   }
+
+  void removeFromFavorites(String userId, String favoriteId) async {
+    try {
+      // Get a reference to the user's document
+      DocumentReference userDocRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      // Get the current data from the document
+      DocumentSnapshot userDocSnapshot = await userDocRef.get();
+      Map<String, dynamic> userData =
+          userDocSnapshot.data() as Map<String, dynamic>;
+      // Extract the favorites list
+      List<dynamic> favorites = List.from(userData['favorites']);
+
+      // Remove the favoriteId from the list
+      favorites.remove(favoriteId);
+
+      // Update the document with the modified favorites list
+      await userDocRef.update({'favorites': favorites});
+
+      print('Favorite removed successfully.');
+    } catch (e) {
+      print('Error removing favorite: $e');
+    }
+  }
 }

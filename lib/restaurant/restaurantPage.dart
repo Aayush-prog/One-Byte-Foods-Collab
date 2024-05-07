@@ -66,6 +66,7 @@ class RestaurantPage extends StatelessWidget {
                     imagesURL: res['imagesURL'],
                   ),
                   RestaurantInfo(
+                      id: this.dataId,
                       name: res['name'],
                       location: res['location'],
                       cuisine: res['cuisine'],
@@ -76,7 +77,9 @@ class RestaurantPage extends StatelessWidget {
                   ),
                   Offers(),
                   Menu(),
-                  ImageGallery(),
+                  ImageGallery(
+                    imagesURL: res['imagesURL'],
+                  ),
                   Reviews(),
                 ],
               );

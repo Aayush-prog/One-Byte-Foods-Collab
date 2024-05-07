@@ -8,9 +8,14 @@ import 'package:one_byte_foods/user/login.dart';
 import 'package:one_byte_foods/user/userProfile.dart';
 import 'package:provider/provider.dart';
 
-class ReservedPage extends StatelessWidget {
+class ReservedPage extends StatefulWidget {
   const ReservedPage({super.key});
 
+  @override
+  State<ReservedPage> createState() => _ReservedPageState();
+}
+
+class _ReservedPageState extends State<ReservedPage> {
   Future<List<Map<String, dynamic>>> fetchRestaurantData(
       List reservedDocumentIds) async {
     List<Map<String, dynamic>> restaurantDataList = [];
@@ -88,39 +93,59 @@ class ReservedPage extends StatelessWidget {
                   } else if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
                   }
-                  List reservedDocumentIds = snapshot.data!['reserved'];
-                  print("printing reserves");
-                  print(reservedDocumentIds);
-                  return FutureBuilder(
-                      future: fetchRestaurantData(reservedDocumentIds),
-                      builder: (context,
-                          AsyncSnapshot<List<Map<String, dynamic>>>
-                              restaurantSnapshot) {
-                        if (restaurantSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (restaurantSnapshot.hasError) {
-                          return Center(
-                            child: Text('Error: ${restaurantSnapshot.error}'),
-                          );
-                        }
-                        return ListView.builder(
-                            itemCount: restaurantSnapshot.data!.length,
-                            itemBuilder: ((context, index) {
-                              var restaurantData =
-                                  restaurantSnapshot.data![index];
-                              return RestaurantCard(
-                                  documentId: restaurantData['documentId'],
-                                  cuisine: restaurantData['cuisine'],
-                                  name: restaurantData['name'],
-                                  location: restaurantData['location'],
-                                  ratings: restaurantData['ratings'],
-                                  imagesURL: restaurantData['imagesURL']);
-                            }));
-                      });
+                  Map<String, dynamic>? data =
+                      snapshot.data!.data() as Map<String, dynamic>;
+
+                  if (data.containsKey('reserved')) {
+                    List reservedDocumentIds = snapshot.data!['reserved'];
+                    print("printing reserves");
+                    print(reservedDocumentIds);
+                    return FutureBuilder(
+                        future: fetchRestaurantData(reservedDocumentIds),
+                        builder: (context,
+                            AsyncSnapshot<List<Map<String, dynamic>>>
+                                restaurantSnapshot) {
+                          if (restaurantSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (restaurantSnapshot.hasError) {
+                            return Center(
+                              child: Text('Error: ${restaurantSnapshot.error}'),
+                            );
+                          }
+                          return ListView.builder(
+                              itemCount: restaurantSnapshot.data!.length,
+                              itemBuilder: ((context, index) {
+                                var restaurantData =
+                                    restaurantSnapshot.data![index];
+                                return Dismissible(
+                                  background: Container(
+                                    color: Colors.red,
+                                    child: Icon(Icons.delete),
+                                  ),
+                                  key:
+                                      ValueKey(restaurantSnapshot.data![index]),
+                                  onDismissed: (DismissDirection direction) {
+                                    setState(() {});
+                                  },
+                                  child: RestaurantCard(
+                                      documentId: restaurantData['documentId'],
+                                      cuisine: restaurantData['cuisine'],
+                                      name: restaurantData['name'],
+                                      location: restaurantData['location'],
+                                      ratings: restaurantData['ratings'],
+                                      imagesURL: restaurantData['imagesURL']),
+                                );
+                              }));
+                        });
+                  }
+                  return Center(
+                    child: Text(
+                        "Reserve your first restaurant to show reservation history!"),
+                  );
                 },
               ),
             )

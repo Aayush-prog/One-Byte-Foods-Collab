@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ImageGallery extends StatelessWidget {
-  const ImageGallery({super.key});
+  final List imagesURL;
+  const ImageGallery({required this.imagesURL});
 
   @override
   Widget build(BuildContext context) {
@@ -9,11 +10,37 @@ class ImageGallery extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            margin: EdgeInsets.only(left: 20),
             child: Column(
               children: [
                 Text("Photos based on community"),
-                Row(children: [Text("1"), Text("2")]),
-                Row(children: [Text("3"), Text("4")]),
+                Row(children: [
+                  Image.network(
+                    imagesURL[0],
+                    width: 180,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Image.network(
+                    imagesURL[0],
+                    width: 180,
+                  ),
+                ]),
+                SizedBox(height: 15),
+                Row(children: [
+                  Image.network(
+                    imagesURL[0],
+                    width: 180,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Image.network(
+                    imagesURL[0],
+                    width: 180,
+                  ),
+                ]),
               ],
             ),
           ),

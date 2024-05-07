@@ -146,6 +146,7 @@ class _BookingState extends State<Booking> {
                       String uid = user!.uid;
                       await _dbService.addOrders(order, uid);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          duration: Duration(milliseconds: 500),
                           content: Text("Restaurant reserved succesfully")));
                     }
                   },

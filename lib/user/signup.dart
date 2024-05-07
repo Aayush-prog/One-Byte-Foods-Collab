@@ -135,16 +135,11 @@ class _UserSignUpState extends State<UserSignUp> {
                       height: 80,
                       width: 80,
                     ),
-                    onTap: () {
-                      AuthService.signInWithGoogle();
+                    onTap: () async {
+                      await AuthService.signInWithGoogle();
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => MyWidget()));
                     },
-                  ),
-                  Image.asset(
-                    "assets/images/facebook.png",
-                    height: 110,
-                    width: 100,
                   ),
                 ],
               ),
