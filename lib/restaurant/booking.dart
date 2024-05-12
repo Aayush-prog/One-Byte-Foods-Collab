@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fonepay_flutter/fonepay_flutter.dart';
 import 'package:one_byte_foods/models/orders.dart';
 import 'package:one_byte_foods/services/database_service.dart';
+
 import 'package:one_byte_foods/user/login.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,8 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  String refId = '';
+  String hasError = '';
   List<DateTime?> _dates = [
     DateTime.now(),
   ];
@@ -144,6 +148,50 @@ class _BookingState extends State<Booking> {
                           MaterialPageRoute(builder: (context) => UserLogin()));
                     } else {
                       String uid = user!.uid;
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Pay in advance?"),
+                              actions: [
+                                FonePayButton(
+                                  paymentConfig: FonePayConfig.dev(
+                                    amt: 10.0,
+                                    r2: 'https://www.marvel.com/hello',
+                                    ru: 'https://www.marvel.com/hello',
+                                    r1: 'qwq',
+                                    prn:
+                                        'PD-2-${FonePayUtils.generateRandomString(len: 6)}',
+                                  ),
+                                  width: 100,
+                                  onFailure: (result) async {
+                                    setState(() {
+                                      refId = '';
+                                      hasError = result;
+                                    });
+                                    if (kDebugMode) {
+                                      print(result);
+                                    }
+                                  },
+                                  onSuccess: (result) async {
+                                    setState(() {
+                                      hasError = '';
+                                      refId = result.uid!;
+                                    });
+                                    if (kDebugMode) {
+                                      print(result.toJson());
+                                    }
+                                  },
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("No"))
+                              ],
+                            );
+                          });
+
                       await _dbService.addOrders(order, uid);
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           duration: Duration(milliseconds: 500),
