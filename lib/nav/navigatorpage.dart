@@ -19,7 +19,7 @@ class _MyWidgetState extends State<MyWidget> {
   int _currentIndex = 0;
   List<Widget> _screens = [
     Home(),
-    SearchPage(),
+    ProductSearchScreen(),
     ReservedPage(),
     Favorites(),
   ];

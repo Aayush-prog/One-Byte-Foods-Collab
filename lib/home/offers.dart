@@ -8,6 +8,7 @@ class Offers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.only(
           left: 15,
@@ -33,7 +34,7 @@ class Offers extends StatelessWidget {
                       Text(
                         "10% off",
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: size.width * 0.05,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -41,6 +42,7 @@ class Offers extends StatelessWidget {
                       Text(
                         "For the first Customers",
                         style: TextStyle(
+                          fontSize: size.width * 0.035,
                           color: Colors.white,
                         ),
                       ),
@@ -48,17 +50,18 @@ class Offers extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: size.width * 0.05,
                 ),
                 Container(
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(color: Colors.grey[600]),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "10% off",
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: size.width * 0.05,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -66,6 +69,7 @@ class Offers extends StatelessWidget {
                       Text(
                         "For the first Customers",
                         style: TextStyle(
+                          fontSize: size.width * 0.035,
                           color: Colors.white,
                         ),
                       ),

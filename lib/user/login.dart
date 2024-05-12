@@ -17,6 +17,7 @@ class _UserLoginState extends State<UserLogin> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -28,7 +29,7 @@ class _UserLoginState extends State<UserLogin> {
             children: [
               Image.asset(
                 "assets/images/logo.png",
-                height: 300,
+                height: size.height * 0.2,
               ),
               const Text("One Byte Foods",
                   style: TextStyle(
@@ -63,9 +64,15 @@ class _UserLoginState extends State<UserLogin> {
               ),
               const SizedBox(height: 10),
               InkWell(
-                child: const Text("Forgot password"),
+                child: const Text(
+                  "Forgot password?",
+                  style: TextStyle(color: Colors.red),
+                ),
                 onTap: () async {
                   await AuthService.resetPass(email: email.text);
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      duration: Duration(milliseconds: 500),
+                      content: Text("Reset password ink sent to your email!")));
                 },
               ),
               const SizedBox(height: 10),
@@ -128,6 +135,9 @@ class _UserLoginState extends State<UserLogin> {
                         }
                       },
                       child: const Text("Log In"))),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
               Text("or"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,6 +156,9 @@ class _UserLoginState extends State<UserLogin> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: size.height * 0.02,
+              ),
               GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -153,7 +166,10 @@ class _UserLoginState extends State<UserLogin> {
                         MaterialPageRoute(
                             builder: (context) => const UserSignUp()));
                   },
-                  child: const Text("Dont have an account? Sign Up"))
+                  child: const Text(
+                    "Dont have an account? Sign Up",
+                    style: TextStyle(color: Colors.blue),
+                  ))
             ],
           ),
         ));
