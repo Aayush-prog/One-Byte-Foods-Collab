@@ -132,6 +132,7 @@
 // }
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/home/filter.dart';
@@ -178,11 +179,10 @@ class Home extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 60),
               child: Search(),
             ),
-            const Row(
-              children: [
-                FilterRestaurants(),
-              ],
-            ),
+            Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.width * 0.05),
+                child: FilterRestaurants()),
             const Padding(
               padding: EdgeInsets.only(left: 15),
               child: Row(children: [

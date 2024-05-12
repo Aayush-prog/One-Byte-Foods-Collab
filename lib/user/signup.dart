@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:one_byte_foods/nav/homepage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
+import 'package:one_byte_foods/upload/imageUpload.dart';
 import 'package:one_byte_foods/user/login.dart';
 
 class UserSignUp extends StatefulWidget {
@@ -144,13 +145,14 @@ class _UserSignUpState extends State<UserSignUp> {
                 ],
               ),
               GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const UserLogin()));
-                  },
-                  child: const Text("Already have an account? Log In"))
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserLogin()));
+                },
+                child: const Text("Already have an account? Log In"),
+              ),
             ],
           ),
         ));

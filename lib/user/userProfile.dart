@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:one_byte_foods/nav/landingpage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
+import 'package:one_byte_foods/upload/imageUpload.dart';
 import 'package:one_byte_foods/user/login.dart';
 import 'package:provider/provider.dart';
 
@@ -73,20 +74,13 @@ class UserProfile extends StatelessWidget {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(20),
-            child: InkWell(
-              onTap: () {},
-              child: Row(
-                children: [
-                  Icon(Icons.help_outline),
-                  SizedBox(width: 10),
-                  Text("Help & Support"),
-                  SizedBox(width: 210),
-                  Icon(Icons.arrow_forward_ios)
-                ],
-              ),
-            ),
-          ),
+              margin: EdgeInsets.all(20),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AddImage()));
+                  },
+                  child: Text("Uplist your restaurant!"))),
           Container(
             margin: EdgeInsets.all(20),
             child: InkWell(
