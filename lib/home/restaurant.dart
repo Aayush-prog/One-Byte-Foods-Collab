@@ -55,9 +55,13 @@ class RestaurantCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.network(
-                    imagesURL[0],
-                    width: 210,
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                        minWidth: MediaQuery.of(context).size.width * 0.5,
+                        maxHeight: MediaQuery.of(context).size.height * 0.15),
+                    child: Image.network(
+                      imagesURL[0],
+                    ),
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

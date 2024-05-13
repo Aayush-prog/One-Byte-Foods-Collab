@@ -58,16 +58,26 @@ class DatabaseService {
     }
   }
 
-  Future updateUserData(String uid,
+  Future<void> updateUserData(String uid,
       {String? favorites, String? reserved}) async {
     Map<String, dynamic> userData = {};
+
+    // Retrieve existing user data
+    DocumentSnapshot userDoc = await _usersRef.doc(uid).get();
+    if (userDoc.exists) {
+      userData = userDoc.data() as Map<String, dynamic>;
+    }
+
+    // Merge new data with existing data
     if (favorites != null) {
       userData['favorites'] = FieldValue.arrayUnion([favorites]);
     }
     if (reserved != null) {
       userData['reserved'] = FieldValue.arrayUnion([reserved]);
     }
-    return await _usersRef.doc(uid).set(userData);
+
+    // Update the document with merged data
+    await _usersRef.doc(uid).set(userData);
   }
 
   Future<DocumentSnapshot> userDB(String docId) {

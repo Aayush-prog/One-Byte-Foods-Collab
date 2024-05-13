@@ -33,70 +33,79 @@ class _AddImageState extends State<AddImage> {
       ),
       body: ListView(
         children: [
-          IconButton(
-              onPressed: () async {
-                ImagePicker imagePicker = ImagePicker();
-                XFile? file =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
-                String uniqueFileName =
-                    DateTime.now().millisecondsSinceEpoch.toString();
-                Reference referenceRoot = FirebaseStorage.instance.ref();
-                Reference referenceImageToUpload =
-                    referenceRoot.child(uniqueFileName);
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? file = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    String uniqueFileName =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
+                    Reference referenceImageToUpload =
+                        referenceRoot.child(uniqueFileName);
 
-                await referenceImageToUpload.putFile(File(file!.path));
-                imagesURL.add(await referenceImageToUpload.getDownloadURL());
-                Text("added!");
-              },
-              icon: Icon(Icons.camera_alt)),
-          IconButton(
-              onPressed: () async {
-                ImagePicker imagePicker = ImagePicker();
-                XFile? file =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
-                String uniqueFileName =
-                    DateTime.now().millisecondsSinceEpoch.toString();
-                Reference referenceRoot = FirebaseStorage.instance.ref();
-                Reference referenceImageToUpload =
-                    referenceRoot.child(uniqueFileName);
+                    await referenceImageToUpload.putFile(File(file!.path));
+                    imagesURL
+                        .add(await referenceImageToUpload.getDownloadURL());
+                    Text("added!");
+                  },
+                  icon: Icon(Icons.camera_alt)),
+              IconButton(
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? file = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    String uniqueFileName =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
+                    Reference referenceImageToUpload =
+                        referenceRoot.child(uniqueFileName);
 
-                await referenceImageToUpload.putFile(File(file!.path));
-                imagesURL.add(await referenceImageToUpload.getDownloadURL());
-                Text("added!");
-              },
-              icon: Icon(Icons.camera_alt)),
-          IconButton(
-              onPressed: () async {
-                ImagePicker imagePicker = ImagePicker();
-                XFile? file =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
-                String uniqueFileName =
-                    DateTime.now().millisecondsSinceEpoch.toString();
-                Reference referenceRoot = FirebaseStorage.instance.ref();
-                Reference referenceImageToUpload =
-                    referenceRoot.child(uniqueFileName);
+                    await referenceImageToUpload.putFile(File(file!.path));
+                    imagesURL
+                        .add(await referenceImageToUpload.getDownloadURL());
+                    Text("added!");
+                  },
+                  icon: Icon(Icons.camera_alt)),
+              IconButton(
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? file = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    String uniqueFileName =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
+                    Reference referenceImageToUpload =
+                        referenceRoot.child(uniqueFileName);
 
-                await referenceImageToUpload.putFile(File(file!.path));
-                imagesURL.add(await referenceImageToUpload.getDownloadURL());
-                Text("added!");
-              },
-              icon: Icon(Icons.camera_alt)),
-          IconButton(
-              onPressed: () async {
-                ImagePicker imagePicker = ImagePicker();
-                XFile? file =
-                    await imagePicker.pickImage(source: ImageSource.gallery);
-                String uniqueFileName =
-                    DateTime.now().millisecondsSinceEpoch.toString();
-                Reference referenceRoot = FirebaseStorage.instance.ref();
-                Reference referenceImageToUpload =
-                    referenceRoot.child(uniqueFileName);
+                    await referenceImageToUpload.putFile(File(file!.path));
+                    imagesURL
+                        .add(await referenceImageToUpload.getDownloadURL());
+                    Text("added!");
+                  },
+                  icon: Icon(Icons.camera_alt)),
+              IconButton(
+                  onPressed: () async {
+                    ImagePicker imagePicker = ImagePicker();
+                    XFile? file = await imagePicker.pickImage(
+                        source: ImageSource.gallery);
+                    String uniqueFileName =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    Reference referenceRoot = FirebaseStorage.instance.ref();
+                    Reference referenceImageToUpload =
+                        referenceRoot.child(uniqueFileName);
 
-                await referenceImageToUpload.putFile(File(file!.path));
-                imagesURL.add(await referenceImageToUpload.getDownloadURL());
-                Text("added!");
-              },
-              icon: Icon(Icons.camera_alt)),
+                    await referenceImageToUpload.putFile(File(file!.path));
+                    imagesURL
+                        .add(await referenceImageToUpload.getDownloadURL());
+                    Text("added!");
+                  },
+                  icon: Icon(Icons.camera_alt)),
+            ],
+          ),
           Container(
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.05,
@@ -117,6 +126,18 @@ class _AddImageState extends State<AddImage> {
               controller: location,
               decoration: InputDecoration(
                 labelText: 'Enter location',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05,
+                vertical: MediaQuery.of(context).size.width * 0.02),
+            child: TextField(
+              controller: cuisine,
+              decoration: InputDecoration(
+                labelText: 'Enter cuisine',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -162,7 +183,7 @@ class _AddImageState extends State<AddImage> {
                       name: name.text,
                       ratings: double.tryParse(ratings.text) ?? 0.0);
                   await dbService.addRestaurants(restaurant);
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       duration: Duration(milliseconds: 500),
                       content: Text("Restaurant added succesfully")));
                   Navigator.pushReplacement(context,

@@ -22,8 +22,10 @@ class FilterRestaurants extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(
+                  fit: BoxFit.fill,
                   'assets/images/Nepali.jpeg',
                   width: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.width * 0.2,
                 ),
                 Text(
                   "Nepali",
@@ -48,7 +50,9 @@ class FilterRestaurants extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/images/Nepali.jpeg',
+                  fit: BoxFit.fill,
                   width: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.width * 0.2,
                 ),
                 Text(
                   "Indian",
@@ -70,7 +74,9 @@ class FilterRestaurants extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/Nepali.jpeg',
+                fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.width * 0.2,
               ),
               Text(
                 "Chinese",
@@ -82,29 +88,5 @@ class FilterRestaurants extends StatelessWidget {
         ),
       ],
     );
-    // return Container(
-    //   margin: EdgeInsets.all(15),
-    //   child: InkWell(
-    //     onTap: () => Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //             builder: (context) => ProductSearchScreen(
-    //                   category: "Nepali",
-    //                 ))),
-    //     child: Column(
-    //       children: [
-    //         Image.asset(
-    //           'assets/images/Nepali.jpeg',
-    //           width: MediaQuery.of(context).size.width * 0.3,
-    //         ),
-    //         Text(
-    //           "Nepali",
-    //           style:
-    //               TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

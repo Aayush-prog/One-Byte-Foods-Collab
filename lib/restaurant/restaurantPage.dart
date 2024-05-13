@@ -76,11 +76,14 @@ class RestaurantPage extends StatelessWidget {
                     resId: dataId,
                   ),
                   Offers(),
-                  Menu(),
+                  // Menu(),
                   ImageGallery(
                     imagesURL: res['imagesURL'],
                   ),
-                  Reviews(),
+                  Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width * 0.05),
+                      child: Reviews()),
                 ],
               );
             }));
