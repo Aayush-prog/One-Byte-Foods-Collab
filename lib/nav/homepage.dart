@@ -7,7 +7,6 @@ import 'package:one_byte_foods/home/filter.dart';
 import 'package:one_byte_foods/home/luxury.dart';
 import 'package:one_byte_foods/home/offers.dart';
 import 'package:one_byte_foods/home/restaurant.dart';
-import 'package:one_byte_foods/home/search.dart';
 import 'package:one_byte_foods/models/restaurants.dart';
 import 'package:one_byte_foods/services/database_service.dart';
 import 'package:one_byte_foods/user/login.dart';

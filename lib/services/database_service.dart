@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:one_byte_foods/models/orders.dart';
 import 'package:one_byte_foods/models/restaurants.dart';
 

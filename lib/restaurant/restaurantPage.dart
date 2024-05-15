@@ -5,7 +5,6 @@ import 'package:one_byte_foods/home/offers.dart';
 import 'package:one_byte_foods/restaurant/booking.dart';
 import 'package:one_byte_foods/restaurant/caraousel.dart';
 import 'package:one_byte_foods/restaurant/imageGallery.dart';
-import 'package:one_byte_foods/restaurant/menu.dart';
 import 'package:one_byte_foods/restaurant/restaurantInfo.dart';
 import 'package:one_byte_foods/restaurant/reviews.dart';
 import 'package:one_byte_foods/services/database_service.dart';

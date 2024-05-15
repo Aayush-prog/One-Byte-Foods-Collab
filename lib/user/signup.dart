@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:one_byte_foods/nav/homepage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
-import 'package:one_byte_foods/upload/imageUpload.dart';
 import 'package:one_byte_foods/user/login.dart';
 
 class UserSignUp extends StatefulWidget {

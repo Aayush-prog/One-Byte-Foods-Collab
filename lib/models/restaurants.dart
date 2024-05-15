@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Restaurants {
   String averagePrice;
   String cuisine;

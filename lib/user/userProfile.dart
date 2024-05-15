@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:one_byte_foods/nav/landingpage.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 import 'package:one_byte_foods/services/auth_service.dart';
 import 'package:one_byte_foods/upload/imageUpload.dart';

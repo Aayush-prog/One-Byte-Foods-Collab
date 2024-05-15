@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:one_byte_foods/main.dart';
 import 'package:one_byte_foods/nav/navigatorpage.dart';
 
 class LandingPage extends StatefulWidget {
