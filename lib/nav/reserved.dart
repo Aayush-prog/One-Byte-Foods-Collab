@@ -84,7 +84,7 @@ class _ReservedPageState extends State<ReservedPage> {
           children: [
             SizedBox(
               width: double.infinity,
-              height: 500,
+              height: MediaQuery.of(context).size.height * 0.9,
               child: FutureBuilder<DocumentSnapshot>(
                 future: _dbService.userDB(uid),
                 builder: (context, snapshot) {

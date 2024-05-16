@@ -64,7 +64,7 @@ class _FavoritesState extends State<Favorites> {
       body: ListView(children: [
         SizedBox(
             width: double.infinity,
-            height: 600,
+            height: MediaQuery.of(context).size.height * 0.9,
             child: FutureBuilder(
                 future: _dbService.userDB(uid),
                 builder: (context, snapshot) {

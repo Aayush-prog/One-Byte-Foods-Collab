@@ -66,15 +66,15 @@ class DatabaseService {
     if (userDoc.exists) {
       userData = userDoc.data() as Map<String, dynamic>;
     }
-
+    print(userData['favorites']);
     // Merge new data with existing data
     if (favorites != null) {
-      userData['favorites'] = FieldValue.arrayUnion([favorites]);
+      userData['favorites'].add(favorites);
     }
     if (reserved != null) {
-      userData['reserved'] = FieldValue.arrayUnion([reserved]);
+      userData['reserved'].add(reserved);
     }
-
+    print(userData['favorites']);
     // Update the document with merged data
     await _usersRef.doc(uid).set(userData);
   }
@@ -93,6 +93,7 @@ class DatabaseService {
       DocumentSnapshot userDocSnapshot = await userDocRef.get();
       Map<String, dynamic> userData =
           userDocSnapshot.data() as Map<String, dynamic>;
+
       // Extract the favorites list
       List<dynamic> favorites = List.from(userData['favorites']);
 
